@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leslar Entertainment Streaming</title>
+  <meta name="description" content="Platform streaming video resmi Leslar Entertainment dengan koleksi LESTALK, MAGER, MALES, dan konten eksklusif responsif." />
+  <meta property="og:title" content="Leslar Entertainment Streaming" />
+  <meta property="og:description" content="Platform streaming video resmi Leslar Entertainment dengan koleksi LESTALK, MAGER, MALES, dan konten eksklusif responsif." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#D4AF37',
+              accent: '#E50914',
+              goldLight: '#F5E6BE',
+              darkBg: '#0b0b0e',
+              darkCard: '#13131a',
+              darkBorder: '#23232f',
+              darkHover: '#1c1c26'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(150, 150, 150, 0.25);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(150, 150, 150, 0.45);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .smooth-transition {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* Banner gradient overlay */
+    .banner-floral {
+      background: linear-gradient(135deg, #f8efe0 0%, #ecd6b2 35%, #e2be84 70%, #d8ae6d 100%);
+    }
+    .dark .banner-floral {
+      background: linear-gradient(135deg, #382c1e 0%, #292014 45%, #1d160f 85%, #140f0a 100%);
+    }
+  </style>
+</head>
+<body class="bg-[#0b0b0e] text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-gold selection:text-black transition-colors duration-300">
+
+  <!-- ================= TOP NAVBAR ================= -->
+  <header class="sticky top-0 z-40 w-full bg-[#0b0b0e]/95 dark:bg-[#0b0b0e]/95 backdrop-blur-md border-b border-[#1f1f2b] transition-colors duration-300">
+    <div class="max-w-[1720px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Sidebar Toggle -->
+      <div class="flex items-center gap-3">
+        <button id="sidebarToggleBtn" aria-label="Toggle Menu" class="p-2 rounded-lg hover:bg-white/10 text-slate-300 transition-colors">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        
+        <a href="javascript:void(0)" onclick="navigateTo('home')" class="flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 flex items-center justify-center font-display font-extrabold text-black shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+            L
+          </div>
+          <div class="leading-tight">
+            <span class="font-display font-bold text-lg tracking-wide bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-400 bg-clip-text text-transparent group-hover:opacity-90">
+              LESLAR
+            </span>
+            <span class="text-[10px] tracking-widest uppercase block text-amber-400/80 font-semibold -mt-1">
+              ENTERTAINMENT
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Live Search Bar -->
+      <div class="flex-1 max-w-2xl mx-auto hidden md:block">
+        <div class="relative group">
+          <input 
+            type="text" 
+            id="globalSearchInput" 
+            placeholder="Cari video, podcast LESTALK, MAGER, atau resep MALES..." 
+            class="w-full bg-[#161622] dark:bg-[#161622] border border-[#262638] focus:border-amber-400/60 rounded-full py-2.5 pl-11 pr-10 text-sm text-slate-200 placeholder-slate-400 outline-none transition-all shadow-inner focus:ring-2 focus:ring-amber-400/20"
+          />
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 group-focus-within:text-amber-400 transition-colors"></i>
+          <button id="clearSearchBtn" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-0.5">
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Action Icons: Mode Toggle, Notifications, Direct Link, Profile -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Direct Link VIP Button -->
+        <button 
+          onclick="handleDirectLinkClick()" 
+          class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black font-semibold text-xs transition-all shadow-lg shadow-amber-500/20 hover:scale-105 active:scale-95"
+          title="Akses VIP & Link Eksklusif"
+        >
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>VIP Stream</span>
+        </button>
+
+        <!-- Night / Light Mode Toggle -->
+        <button 
+          id="themeToggleBtn" 
+          onclick="toggleThemeMode()" 
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#181824] hover:bg-[#232334] border border-[#2a2a3e] text-slate-200 text-xs font-medium transition-all"
+          title="Beralih Mode Gelap/Terang"
+        >
+          <span id="themeIcon">
+            <i data-lucide="moon" class="w-4 h-4 text-amber-300"></i>
+          </span>
+          <span id="themeLabel" class="hidden lg:inline text-xs">Night</span>
+        </button>
+
+        <!-- Notification Bell -->
+        <div class="relative">
+          <button 
+            id="notificationBtn" 
+            onclick="toggleNotificationPanel()" 
+            class="p-2 rounded-full hover:bg-white/10 text-slate-300 relative transition-colors"
+            title="Pemberitahuan"
+          >
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          </button>
+
+          <!-- Notification Dropdown -->
+          <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-80 bg-[#161622] border border-[#2b2b3d] rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95">
+            <div class="flex items-center justify-between pb-3 border-b border-white/10">
+              <span class="font-bold text-sm text-slate-100">Notifikasi Terbaru</span>
+              <span class="text-[11px] text-amber-400 cursor-pointer hover:underline" onclick="markAllNotificationsRead()">Tandai dibaca</span>
+            </div>
+            <div class="mt-3 space-y-2.5 max-h-64 overflow-y-auto pr-1">
+              <div class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors cursor-pointer flex gap-3 items-start" onclick="openVideoModal('lestalk-team')">
+                <div class="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+                <div>
+                  <p class="text-xs font-semibold text-slate-200">Video Baru Rilis!</p>
+                  <p class="text-[11px] text-slate-400 line-clamp-1">LESTALK: Cerita AS TEAM Mengharukan</p>
+                  <span class="text-[10px] text-slate-500">9 jam yang lalu</span>
+                </div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors cursor-pointer flex gap-3 items-start" onclick="openVideoModal('mager-wudhu')">
+                <div class="w-2 h-2 rounded-full bg-emerald-400 mt-1.5 shrink-0"></div>
+                <div>
+                  <p class="text-xs font-semibold text-slate-200">Episode Favorit Abang L</p>
+                  <p class="text-[11px] text-slate-400 line-clamp-1">MAGER: Belajar Wudhu Berakhir Basah</p>
+                  <span class="text-[10px] text-slate-500">Trending #1 Kids</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Profile Avatar -->
+        <div class="flex items-center gap-2 pl-1">
+          <div class="w-8 h-8 rounded-full overflow-hidden border border-amber-400/40 p-0.5 cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Profil pengguna aktif: Leslar Fandom VIP')">
+            <img 
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" 
+              alt="User" 
+              class="w-full h-full object-cover rounded-full"
+            />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN LAYOUT WITH SIDEBAR ================= -->
+  <div class="max-w-[1720px] mx-auto flex min-h-[calc(100vh-4rem)]">
+    
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside id="mainSidebar" class="w-64 shrink-0 border-r border-[#1e1e2c] bg-[#0d0d12] p-4 flex flex-col justify-between hidden md:flex transition-all duration-300">
+      <div class="space-y-6">
+        
+        <!-- Main Navigation Links -->
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 mb-2">Menu Utama</p>
+          <nav class="space-y-1">
+            <button onclick="navigateTo('home')" data-nav="home" class="nav-item w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all bg-amber-400/10 text-amber-300 border border-amber-400/20 shadow-sm">
+              <i data-lucide="home" class="w-4 h-4"></i>
+              <span>Home</span>
+            </button>
+            <button onclick="navigateTo('watchlist')" data-nav="watchlist" class="nav-item w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+              <i data-lucide="bookmark" class="w-4 h-4"></i>
+              <span>Watch List</span>
+              <span id="watchlistBadge" class="ml-auto text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded-full">3</span>
+            </button>
+            <button onclick="navigateTo('comingsoon')" data-nav="comingsoon" class="nav-item w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+              <i data-lucide="clock" class="w-4 h-4"></i>
+              <span>Coming Soon</span>
+            </button>
+            <button onclick="navigateTo('discovery')" data-nav="discovery" class="nav-item w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+              <span>Discovery</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Social & Community -->
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 mb-2">Komunitas & Fans</p>
+          <nav class="space-y-1">
+            <button onclick="navigateTo('friends')" data-nav="friends" class="nav-item w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+              <i data-lucide="users" class="w-4 h-4"></i>
+              <span>Friends</span>
+            </button>
+            <button onclick="navigateTo('parties')" data-nav="parties" class="nav-item w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+              <i data-lucide="tv" class="w-4 h-4"></i>
+              <span>Parties</span>
+              <span class="ml-auto text-[9px] bg-red-500 text-white font-bold px-1.5 py-0.5 rounded-full animate-pulse">LIVE</span>
+            </button>
+            <button onclick="navigateTo('media')" data-nav="media" class="nav-item w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+              <i data-lucide="film" class="w-4 h-4"></i>
+              <span>Media</span>
+            </button>
+            <button onclick="navigateTo('setting')" data-nav="setting" class="nav-item w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+              <i data-lucide="settings" class="w-4 h-4"></i>
+              <span>Setting</span>
+            </button>
+          </nav>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Promo Badge -->
+      <div class="mt-6 p-3.5 rounded-2xl bg-gradient-to-br from-amber-950/40 via-amber-900/20 to-black border border-amber-500/20">
+        <div class="flex items-center gap-2 mb-1.5">
+          <i data-lucide="crown" class="w-4 h-4 text-amber-400"></i>
+          <span class="text-xs font-bold text-amber-200">Leslar VIP Pass</span>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed mb-3">Tonton tayangan tanpa jeda & konten eksklusif keluarga Leslar.</p>
+        <button onclick="handleDirectLinkClick()" class="w-full py-1.5 px-3 rounded-lg bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold transition-all shadow">
+          Buka Akses Premium
+        </button>
+      </div>
+    </aside>
+
+    <!-- CENTER & RIGHT: MAIN VIEW AREA -->
+    <main class="flex-1 min-w-0 overflow-y-auto">
+      
+      <!-- DYNAMIC CONTENT CONTAINER -->
+      <div id="dynamicPageContent" class="pb-16">
+
+        <!-- ================= HOME PAGE CONTENT (DEFAULT) ================= -->
+        <div id="homeView" class="space-y-6">
+          
+          <!-- ================= HEADER BANNER (EXACT LIKE REFERENCE) ================= -->
+          <div class="relative w-full overflow-hidden border-b border-[#222232] shadow-xl">
+            <!-- Warm luxury banner background -->
+            <div class="relative w-full h-44 sm:h-56 md:h-72 lg:h-80 bg-gradient-to-r from-[#e7d1ab] via-[#f7ebd4] to-[#e4cb9f] dark:from-[#2e2316] dark:via-[#3b2e1e] dark:to-[#2b1f13] flex items-center justify-between px-4 sm:px-10 overflow-hidden">
+              
+              <!-- Left decorative leaves & sparkles SVG pattern -->
+              <div class="absolute left-0 top-0 bottom-0 w-1/3 pointer-events-none opacity-40 dark:opacity-25 flex items-center">
+                <svg class="w-full h-full text-amber-700/30 dark:text-amber-300/20" viewBox="0 0 300 200" fill="currentColor">
+                  <path d="M10 50 Q 80 20 120 70 T 200 40 Q 150 120 80 140 Z" />
+                  <circle cx="50" cy="120" r="3" fill="#D4AF37"/>
+                  <circle cx="160" cy="80" r="4" fill="#D4AF37"/>
+                  <circle cx="220" cy="140" r="2.5" fill="#D4AF37"/>
+                </svg>
+              </div>
+
+              <!-- Center: stylized LESLAR ENTERTAINMENT logo & brands -->
+              <div class="relative z-10 flex flex-col items-center justify-center text-center mx-auto max-w-xl">
+                <!-- Main Brand Typography -->
+                <div class="relative">
+                  <h1 class="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl tracking-tight text-[#1a150e] dark:text-[#f8f1e5] drop-shadow-sm">
+                    LESLAR
+                  </h1>
+                  <span class="block text-[11px] sm:text-sm md:text-base font-bold tracking-[0.35em] text-[#5c4929] dark:text-[#d4af37] uppercase -mt-1 sm:-mt-2">
+                    E N T E R T A I N M E N T
+                  </span>
+                  <!-- Diamond Sparkle Icon on top of S -->
+                  <span class="absolute top-1 left-[45%] text-amber-500 animate-pulse">✦</span>
+                </div>
+
+                <!-- Sub-brands badge row (PULES, Mager, LESTALK, Abang L The Explorer) -->
+                <div class="flex items-center justify-center flex-wrap gap-2 sm:gap-3.5 mt-3 sm:mt-5 text-[10px] sm:text-xs font-bold">
+                  <span class="px-2.5 py-0.5 rounded-full bg-pink-500/15 text-pink-700 dark:text-pink-300 border border-pink-400/30 shadow-xs">
+                    PULES
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30 shadow-xs font-serif italic">
+                    Mager
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-red-600 text-white font-extrabold tracking-wider shadow-sm">
+                    LESTALK
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-800 dark:text-blue-300 border border-blue-400/30 shadow-xs">
+                    Abang L The Explorer
+                  </span>
+                </div>
+              </div>
+
+              <!-- Right: Family Portrait (Lesti Kejora, Rizky Billar, & Baby L) -->
+              <div class="relative z-10 hidden sm:flex items-end justify-center h-full max-w-xs shrink-0 select-none">
+                <div class="relative group cursor-pointer" onclick="handleDirectLinkClick()">
+                  <!-- Artistic glowing frame around family -->
+                  <div class="absolute -inset-1 rounded-2xl bg-gradient-to-t from-amber-500/40 to-transparent blur-sm"></div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=600&q=80" 
+                    alt="Keluarga Leslar: Rizky Billar, Lesti Kejora & Baby L" 
+                    class="relative w-44 sm:w-52 md:w-64 h-36 sm:h-48 md:h-56 object-cover object-top rounded-t-2xl shadow-2xl border-t-2 border-x-2 border-amber-300/40 transition-transform group-hover:scale-102"
+                  />
+                  <!-- Floating badge -->
+                  <div class="absolute bottom-2 left-2 right-2 px-2 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-semibold text-amber-200 text-center">
+                    Lesti Kejora, Rizky Billar & Abang L
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right decorative florals SVG -->
+              <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none opacity-40 dark:opacity-25 flex items-center justify-end">
+                <svg class="w-full h-full text-amber-700/30 dark:text-amber-300/20" viewBox="0 0 300 200" fill="currentColor">
+                  <path d="M290 50 Q 220 20 180 70 T 100 40 Q 150 120 220 140 Z" />
+                </svg>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ================= CHANNEL INFO BAR (IDENTICAL TO REFERENCE) ================= -->
+          <div class="px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-4 border-b border-[#1f1f2b]">
+              
+              <!-- Avatar & Details -->
+              <div class="flex items-start sm:items-center gap-4 sm:gap-6">
+                <!-- Channel Avatar -->
+                <div class="relative shrink-0">
+                  <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-full ring-4 ring-amber-400/30 overflow-hidden shadow-2xl bg-black">
+                    <img 
+                      src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" 
+                      alt="Leslar Entertainment Profile" 
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                  <!-- Status pulse dot -->
+                  <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-[#0b0b0e]" title="Channel Aktif"></span>
+                </div>
+
+                <!-- Text metadata -->
+                <div class="space-y-1">
+                  <!-- Name & Verified Check -->
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+                      Leslar Entertainment
+                      <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-900" title="Terverifikasi">
+                        <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                      </span>
+                    </h2>
+                  </div>
+
+                  <!-- Handles & Stats -->
+                  <p class="text-xs sm:text-sm text-slate-400">
+                    <span class="font-medium text-slate-300">@LeslarEntertainment</span>
+                    <span class="mx-1.5">•</span>
+                    <span id="subscriberCountText" class="font-semibold text-slate-200">2,31 jt subscriber</span>
+                    <span class="mx-1.5">•</span>
+                    <span>1,5 rb video</span>
+                  </p>
+
+                  <!-- Bio description -->
+                  <p class="text-xs sm:text-sm text-slate-400 line-clamp-1 max-w-xl">
+                    The official channel of Leslar Entertainment (Lesti Kejora, Rizky Billar & Baby 'L') 
+                    <button onclick="openBioModal()" class="text-amber-400 font-semibold hover:underline ml-1">...selengkapnya</button>
+                  </p>
+
+                  <!-- Links row -->
+                  <div class="flex items-center gap-2 pt-1 text-xs text-amber-400/90 font-medium">
+                    <i data-lucide="link" class="w-3.5 h-3.5"></i>
+                    <a href="https://instagram.com" target="_blank" class="hover:underline">Instagram</a>
+                    <span class="text-slate-400">dan 3 link lainnya</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action buttons: Subscribe, Komunitas, Share -->
+              <div class="flex items-center gap-3 shrink-0 self-start md:self-center">
+                <!-- Subscribe Button (Toggle state) -->
+                <button 
+                  id="subscribeBtn" 
+                  onclick="toggleSubscribe()" 
+                  class="px-6 py-2.5 rounded-full bg-white text-black hover:bg-slate-200 font-bold text-sm transition-all shadow-md active:scale-95 flex items-center gap-2"
+                >
+                  <span id="subscribeBtnText">Subscribe</span>
+                </button>
+
+                <!-- Komunitas Button -->
+                <button 
+                  onclick="navigateTo('friends')" 
+                  class="px-4 py-2.5 rounded-full bg-[#1c1c28] hover:bg-[#28283a] border border-[#2d2d42] text-slate-200 text-sm font-semibold flex items-center gap-2 transition-all active:scale-95"
+                >
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                  <span>Komunitas</span>
+                </button>
+
+                <!-- Share Button -->
+                <button 
+                  onclick="shareChannel()" 
+                  class="p-2.5 rounded-full bg-[#1c1c28] hover:bg-[#28283a] border border-[#2d2d42] text-slate-200 transition-all active:scale-95"
+                  title="Bagikan Saluran"
+                >
+                  <i data-lucide="share-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- ================= HORIZONTAL SUB-NAVIGATION TABS ================= -->
+            <div class="flex items-center justify-between border-b border-[#1f1f2b] pt-2 overflow-x-auto hide-scrollbar">
+              <div class="flex items-center gap-6 sm:gap-8 min-w-max text-sm font-semibold">
+                <button onclick="setTab('beranda')" class="channel-tab pb-3 text-white border-b-2 border-white transition-all flex items-center gap-1.5" data-tab="beranda">
+                  Beranda
+                </button>
+                <button onclick="setTab('video')" class="channel-tab pb-3 text-slate-400 hover:text-white transition-all" data-tab="video">
+                  Video
+                </button>
+                <button onclick="setTab('shorts')" class="channel-tab pb-3 text-slate-400 hover:text-white transition-all" data-tab="shorts">
+                  Shorts
+                </button>
+                <button onclick="setTab('live')" class="channel-tab pb-3 text-slate-400 hover:text-white transition-all" data-tab="live">
+                  Live
+                </button>
+                <button onclick="setTab('playlist')" class="channel-tab pb-3 text-slate-400 hover:text-white transition-all" data-tab="playlist">
+                  Playlist
+                </button>
+                <button onclick="setTab('postingan')" class="channel-tab pb-3 text-slate-400 hover:text-white transition-all" data-tab="postingan">
+                  Postingan
+                </button>
+              </div>
+
+              <!-- Channel In-tab search button -->
+              <button onclick="focusSearch()" class="p-2 text-slate-400 hover:text-white transition-colors" title="Cari di Saluran ini">
+                <i data-lucide="search" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- ================= GRID MAIN CONTENT & RIGHT SIDEBAR ================= -->
+          <div class="px-4 lg:px-8 grid grid-cols-1 xl:grid-cols-4 gap-8">
+            
+            <!-- LEFT 3 COLUMNS: VIDEO ROWS & BANNER HORIZONTAL -->
+            <div class="xl:col-span-3 space-y-9">
+
+              <!-- SECTION 1: "Untuk Anda" (For You / New Releases) -->
+              <section id="sectionUntukAnda" class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-xl sm:text-2xl font-display font-extrabold text-slate-100">
+                      Untuk Anda
+                    </h3>
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-semibold border border-amber-400/30">
+                      Rekomendasi
+                    </span>
+                  </div>
+
+                  <!-- Row Scroll controls -->
+                  <div class="flex items-center gap-2">
+                    <button onclick="scrollRow('rowUntukAnda', -340)" class="p-2 rounded-full bg-[#181824] hover:bg-[#252538] text-slate-300 transition-colors">
+                      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="scrollRow('rowUntukAnda', 340)" class="p-2 rounded-full bg-[#181824] hover:bg-[#252538] text-slate-300 transition-colors">
+                      <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Video Cards Slider -->
+                <div id="rowUntukAnda" class="flex gap-4 sm:gap-5 overflow-x-auto hide-scrollbar pb-3 scroll-smooth">
+                  
+                  <!-- CARD 1: AS TEAM LESTALK -->
+                  <div class="video-card w-[290px] sm:w-[320px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('lestalk-team')">
+                    <!-- Thumbnail Container with 16:9 ratio -->
+                    <div class="relative aspect-video rounded-2xl overflow-hidden bg-[#161622] border border-[#222232] shadow-lg group-hover:border-amber-400/50 transition-all">
+                      <img 
+                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=640&q=80" 
+                        alt="LESTALK AS TEAM" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <!-- Overlay Thumbnail Graphics (Exact from reference) -->
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-between p-3">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-red-600 text-[10px] font-black text-white tracking-wider">
+                            LESTALK
+                          </span>
+                          <span class="px-2 py-0.5 rounded bg-black/80 text-[11px] font-mono font-bold text-slate-200">
+                            1.14.51
+                          </span>
+                        </div>
+                        <div>
+                          <span class="inline-block px-1.5 py-0.5 bg-yellow-400 text-black text-[9px] font-extrabold uppercase rounded mb-1">
+                            AS TEAM
+                          </span>
+                          <p class="text-[11px] font-bold text-yellow-300 leading-tight drop-shadow">
+                            "KALAU KITA DIAM, TERNYATA KITA LAGI SULIT, KE BACA AJA SAMA MEREKA..."
+                          </p>
+                        </div>
+                      </div>
+                      <!-- Play Hover Button -->
+                      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="w-12 h-12 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                          <i data-lucide="play" class="w-6 h-6 fill-current ml-0.5"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Metadata below card -->
+                    <div class="mt-2.5 flex gap-3">
+                      <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 ring-1 ring-amber-400/30">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover" alt="Avatar"/>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <h4 class="text-xs sm:text-sm font-bold text-slate-100 group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">
+                          LESTALK : SELALU CERIA, TERNYATA AS TEAM MENYIMPAN BANYAK KESEDIHAN, SEMUA ...
+                        </h4>
+                        <div class="flex items-center gap-1.5 text-[11px] text-slate-400 mt-1">
+                          <span>Leslar Entertainment</span>
+                          <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                          ▷ 814 rb <span class="mx-1">•</span> 9 jam lalu
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CARD 2: KOKO & SOIMAH -->
+                  <div class="video-card w-[290px] sm:w-[320px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('lestalk-soimah1')">
+                    <div class="relative aspect-video rounded-2xl overflow-hidden bg-[#161622] border border-[#222232] shadow-lg group-hover:border-amber-400/50 transition-all">
+                      <img 
+                        src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=640&q=80" 
+                        alt="LESTALK SOIMAH" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-between p-3">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-red-600 text-[10px] font-black text-white tracking-wider">
+                            LESTALK
+                          </span>
+                          <span class="px-2 py-0.5 rounded bg-black/80 text-[11px] font-mono font-bold text-slate-200">
+                            1.00.04
+                          </span>
+                        </div>
+                        <div>
+                          <span class="inline-block px-1.5 py-0.5 bg-yellow-400 text-black text-[9px] font-extrabold uppercase rounded mb-1">
+                            KOKO :
+                          </span>
+                          <p class="text-[11px] font-bold text-yellow-300 leading-tight drop-shadow">
+                            "DIA NGOMONG, KALAU PENGEN CEPET SUKSES GAK USAH BAWA SUAMI"
+                          </p>
+                        </div>
+                      </div>
+                      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="w-12 h-12 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                          <i data-lucide="play" class="w-6 h-6 fill-current ml-0.5"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-2.5 flex gap-3">
+                      <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 ring-1 ring-amber-400/30">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover" alt="Avatar"/>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <h4 class="text-xs sm:text-sm font-bold text-slate-100 group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">
+                          LESTALK : JAUH DARI ANAK, DIKIRA JAB**Y, GAK BOLEH BAWA SUAMI, PERJUANGAN SOIMAH JAD...
+                        </h4>
+                        <div class="flex items-center gap-1.5 text-[11px] text-slate-400 mt-1">
+                          <span>Leslar Entertainment</span>
+                          <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                          ▷ 492 rb <span class="mx-1">•</span> 2 mgg lalu
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CARD 3: GILGA SAHID -->
+                  <div class="video-card w-[290px] sm:w-[320px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('lestalk-gilga')">
+                    <div class="relative aspect-video rounded-2xl overflow-hidden bg-[#161622] border border-[#222232] shadow-lg group-hover:border-amber-400/50 transition-all">
+                      <img 
+                        src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=640&q=80" 
+                        alt="LESTALK GILGA" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-between p-3">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-red-600 text-[10px] font-black text-white tracking-wider">
+                            LESTALK
+                          </span>
+                          <span class="px-2 py-0.5 rounded bg-black/80 text-[11px] font-mono font-bold text-slate-200">
+                            55.01
+                          </span>
+                        </div>
+                        <div>
+                          <span class="inline-block px-1.5 py-0.5 bg-yellow-400 text-black text-[9px] font-extrabold uppercase rounded mb-1">
+                            GILGA :
+                          </span>
+                          <p class="text-[11px] font-bold text-yellow-300 leading-tight drop-shadow">
+                            "AKU SANGAT SAYANG ISTRIKU, TANPA DIA AKU GAK NYANYI LAGI!"
+                          </p>
+                        </div>
+                      </div>
+                      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="w-12 h-12 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                          <i data-lucide="play" class="w-6 h-6 fill-current ml-0.5"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-2.5 flex gap-3">
+                      <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 ring-1 ring-amber-400/30">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover" alt="Avatar"/>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <h4 class="text-xs sm:text-sm font-bold text-slate-100 group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">
+                          LESTALK : DULU DIBAYAR 35RB! GILGA SEKARANG SUKSES KARENA BUCIN?!
+                        </h4>
+                        <div class="flex items-center gap-1.5 text-[11px] text-slate-400 mt-1">
+                          <span>Leslar Entertainment</span>
+                          <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                          ▷ 239 rb <span class="mx-1">•</span> 2 h lalu
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CARD 4: SOIMAH 2 -->
+                  <div class="video-card w-[290px] sm:w-[320px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('lestalk-soimah2')">
+                    <div class="relative aspect-video rounded-2xl overflow-hidden bg-[#161622] border border-[#222232] shadow-lg group-hover:border-amber-400/50 transition-all">
+                      <img 
+                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=640&q=80" 
+                        alt="LESTALK SOIMAH" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-between p-3">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-red-600 text-[10px] font-black text-white tracking-wider">
+                            LESTALK
+                          </span>
+                          <span class="px-2 py-0.5 rounded bg-black/80 text-[11px] font-mono font-bold text-slate-200">
+                            1.12.30
+                          </span>
+                        </div>
+                        <div>
+                          <span class="inline-block px-1.5 py-0.5 bg-yellow-400 text-black text-[9px] font-extrabold uppercase rounded mb-1">
+                            SOIMAH :
+                          </span>
+                          <p class="text-[11px] font-bold text-yellow-300 leading-tight drop-shadow">
+                            "SEMPAT BENCI ORANG TUA... KERAS SANG IBU JADIKAN SUKSES"
+                          </p>
+                        </div>
+                      </div>
+                      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="w-12 h-12 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                          <i data-lucide="play" class="w-6 h-6 fill-current ml-0.5"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-2.5 flex gap-3">
+                      <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 ring-1 ring-amber-400/30">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover" alt="Avatar"/>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <h4 class="text-xs sm:text-sm font-bold text-slate-100 group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">
+                          LESTALK : SEMPAT BENCI ORANG TUA... KERAS SANG IBU JADIKAN SOIMAH SUKSES...
+                        </h4>
+                        <div class="flex items-center gap-1.5 text-[11px] text-slate-400 mt-1">
+                          <span>Leslar Entertainment</span>
+                          <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                          ▷ 573 rb <span class="mx-1">•</span> 3 mgg lalu
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </section>
+
+              <!-- ================= BANNER_HORIZONTAL (REQUIRED AD PLACEMENT) ================= -->
+              <!-- Rule: Tempatkan BANNER_HORIZONTAL persis di bawah section New Release / Untuk Anda -->
+              <div class="my-6 w-full flex flex-col items-center justify-center p-3 rounded-2xl bg-[#12121a] border border-[#252538] overflow-hidden">
+                <div class="flex items-center justify-between w-full max-w-[728px] mb-2 px-1">
+                  <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 flex items-center gap-1">
+                    <i data-lucide="info" class="w-3 h-3 text-amber-400"></i> Sponsor & Iklan Pilihan
+                  </span>
+                  <a href="https://www.profitableratecpmnetwork.com/mn3irvsp?key=188405ffbc395255e839d9c1d8d425a5" target="_blank" class="text-[10px] text-amber-400 hover:underline">
+                    Pasang Iklan Disini
+                  </a>
+                </div>
+                
+                <!-- Ad container 728x90 -->
+                <div id="adBannerHorizontalWrapper" class="w-full max-w-[728px] min-h-[90px] flex items-center justify-center bg-black/40 rounded-xl overflow-hidden cursor-pointer" onclick="handleDirectLinkClick()">
+                  <!-- Live Ad Script Injection Target -->
+                  <div id="adBannerHorizontalContainer" class="w-[728px] h-[90px] max-w-full flex items-center justify-center">
+                    <script>
+                      atOptions = {
+                        'key' : 'f4bbb8805fe1096e8ee2095720eefb88',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                      };
+                    </script>
+                    <script src="https://www.highrevenueformat.com/f4bbb8805fe1096e8ee2095720eefb88/invoke.js"></script>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECTION 2: "MAGER (MAIN GEMBIRA BERSAMA ABANG L)" -->
+              <section id="sectionMager" class="space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <div class="flex items-center gap-3">
+                    <h3 class="text-xl sm:text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+                      <span>MAGER (MAIN GEMBIRA BERSAMA ABANG L)</span>
+                    </h3>
+                    <button onclick="playAllPlaylist('mager')" class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-xs font-bold text-slate-200 transition-colors">
+                      <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                      <span>Putar semua</span>
+                    </button>
+                  </div>
+
+                  <!-- Row Scroll controls -->
+                  <div class="flex items-center gap-2">
+                    <button onclick="scrollRow('rowMager', -300)" class="p-2 rounded-full bg-[#181824] hover:bg-[#252538] text-slate-300 transition-colors">
+                      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="scrollRow('rowMager', 300)" class="p-2 rounded-full bg-[#181824] hover:bg-[#252538] text-slate-300 transition-colors">
+                      <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 6 Mager Cards Slider -->
+                <div id="rowMager" class="flex gap-4 sm:gap-5 overflow-x-auto hide-scrollbar pb-3 scroll-smooth">
+                  
+                  <!-- MAGER 1: Belajar Wudhu -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('mager-wudhu')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=500&q=80" alt="Mager Belajar Wudhu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-amber-500 text-[9px] font-black text-black">Mager</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">13.28</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">ABANG L DIAJARIN WUDHU SAMA PAPA BILLAR?!</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MAGER : BELAJAR WUDHU BERAKHIR BASAH ...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 893 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MAGER 2: PR Abang L -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('mager-pr')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=500&q=80" alt="PR Abang L" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-amber-500 text-[9px] font-black text-black">Mager</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">16.22</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">ABANG L SUKA DINOSAURUS!</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MAGER : PR ABANG L DIKERJAIN PAPA BILLAR?!
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 269 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MAGER 3: Gembiranya Abang L -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('mager-playground')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=500&q=80" alt="Mager Playground" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-amber-500 text-[9px] font-black text-black">Mager</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">10.48</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">POSE KECE ABANG L DI PLAYGROUND!</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MAGER : GEMBIRANYA ABANG L SAAT BERMAIN D...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 335 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MAGER 4: Penasaran Deh -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('mager-sekolah')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=80" alt="Mager Sekolah" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-amber-500 text-[9px] font-black text-black">Mager</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">17.49</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">BERMAIN BERSAMA TEMAN TEMAN DI SEKOLAH</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MAGER : PENASARAN DEH... PELAJARAN APA YANG ...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 378 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MAGER 5: Musisi Cilik -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('mager-musisi')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80" alt="Mager Musisi Cilik" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-amber-500 text-[9px] font-black text-black">Mager</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">13.54</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">KADO SPECIAL UNTUK ABANG L DARI FANS</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MAGER : ABANG L MENJADI MUSISI CILIK SETELAH ...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 307 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MAGER 6: Main Perosotan -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('mager-villa')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=500&q=80" alt="Main Perosotan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-amber-500 text-[9px] font-black text-black">Mager</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">10.53</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">TAMAN BERMAIN DI VILLA PUNCAK</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MAGER : ABANG L MAIN PEROSOTAN YANG TINGGI ...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 278 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                </div>
+              </section>
+
+              <!-- SECTION 3: "MALES (MASAKAN LESTI)" -->
+              <section id="sectionMales" class="space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <div class="flex items-center gap-3">
+                    <h3 class="text-xl sm:text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+                      <span>MALES (MASAKAN LESTI)</span>
+                    </h3>
+                    <button onclick="playAllPlaylist('males')" class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-xs font-bold text-slate-200 transition-colors">
+                      <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                      <span>Putar semua</span>
+                    </button>
+                  </div>
+
+                  <!-- Row Scroll controls -->
+                  <div class="flex items-center gap-2">
+                    <button onclick="scrollRow('rowMales', -300)" class="p-2 rounded-full bg-[#181824] hover:bg-[#252538] text-slate-300 transition-colors">
+                      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="scrollRow('rowMales', 300)" class="p-2 rounded-full bg-[#181824] hover:bg-[#252538] text-slate-300 transition-colors">
+                      <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 6 Males Cards Slider -->
+                <div id="rowMales" class="flex gap-4 sm:gap-5 overflow-x-auto hide-scrollbar pb-3 scroll-smooth">
+                  
+                  <!-- MALES 1: Masakan Bunda Lesti -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('males-super')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80" alt="Males Masakan Lesti" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-emerald-600 text-[9px] font-black text-white">MALES</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">23.41</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">SPAGHETTI ALA BUNDA LESTI</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MALES : MASAKAN BUNDA LESTI YANG SUPER ENDUL!...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 264 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MALES 2: Seblak Shirataki -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('males-seblak')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80" alt="Seblak Shirataki" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-emerald-600 text-[9px] font-black text-white">MALES</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">17.37</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">SEBLAK SHIRATAKI ALA BUNDA LESTI</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MALES : SEBLAK BUATAN BUNDA LESTI DICIPIN PA...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 482 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MALES 3: Nasi Liwet -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('males-liwet')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=500&q=80" alt="Nasi Liwet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-emerald-600 text-[9px] font-black text-white">MALES</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">16.27</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">NGALIWET BARENG DI VILLA PUNCAK!</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MALES : NASI LIWET TER ENDUL ALA BUNDA LESTI!!...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 1,7 jt • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MALES 4: Mie Ayam Legend -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('males-mieayam')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=500&q=80" alt="Mie Ayam Legend" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-emerald-600 text-[9px] font-black text-white">MALES</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">17.01</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">MIE AYAM BUNDA LESTI REBORN!!</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MALES : RESEP RAHASIA MIE AYAM LEGEND BUNDA ...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 320 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MALES 5: Salad Buah -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('males-salad')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=80" alt="Salad Buah" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-emerald-600 text-[9px] font-black text-white">MALES</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">19.19</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">PESONA SALAD BUAH LESTI KEJORA</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MALES : RESEP RAHASIA LESTI KEJORA, SALAD BUA...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 160 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                  <!-- MALES 6: Rafael Seblak Papeda -->
+                  <div class="video-card w-[240px] sm:w-[270px] shrink-0 group cursor-pointer" onclick="handleVideoItemClick('males-rafael')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-[#161622] border border-[#222232] shadow-md group-hover:border-amber-400/50 transition-all">
+                      <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=500&q=80" alt="Rafael Seblak" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-between p-2.5">
+                        <div class="flex justify-between items-start">
+                          <span class="px-2 py-0.5 rounded bg-emerald-600 text-[9px] font-black text-white">MALES</span>
+                          <span class="px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono font-bold text-slate-200">22.47</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-yellow-300 drop-shadow">SEBLAK PAPEDA ALA DUTA SEBLAK INDONESIA</p>
+                      </div>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                      <h4 class="text-xs font-bold text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug">
+                        MALES : LESTI KEJORA MENANTANG RAFAEL BIKI...
+                      </h4>
+                      <div class="flex items-center gap-1 text-[11px] text-slate-400">
+                        <span>Leslar Entertainment</span>
+                        <i data-lucide="check-circle" class="w-3 h-3 text-slate-300"></i>
+                      </div>
+                      <p class="text-[11px] text-slate-400">▷ 604 rb • 3 thn lalu</p>
+                    </div>
+                  </div>
+
+                </div>
+              </section>
+
+            </div>
+
+            <!-- RIGHT SIDEBAR: POPULAR MOVIES, BANNER_KOTAK, FAVORITES -->
+            <div class="space-y-6">
+
+              <!-- WIDGET 1: POPULAR MOVIES & PODCASTS TOP CHART -->
+              <div class="p-5 rounded-2xl bg-[#13131c] border border-[#222230] shadow-xl">
+                <div class="flex items-center justify-between mb-4">
+                  <h4 class="font-display font-bold text-base text-slate-100 flex items-center gap-2">
+                    <i data-lucide="trending-up" class="w-4 h-4 text-amber-400"></i>
+                    <span>Popular Movies & Shows</span>
+                  </h4>
+                  <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Top 5</span>
+                </div>
+
+                <div class="space-y-3">
+                  <!-- Rank 1 -->
+                  <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group" onclick="handleVideoItemClick('lestalk-team')">
+                    <span class="font-display font-extrabold text-2xl text-amber-400 w-5 text-center">1</span>
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=150&q=80" alt="Thumb" class="w-14 h-10 object-cover rounded-lg shrink-0"/>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-xs font-bold text-slate-200 group-hover:text-amber-300 line-clamp-1">LESTALK : AS TEAM Bikin Haru</p>
+                      <p class="text-[10px] text-slate-400">814K tayangan • Podcast</p>
+                    </div>
+                  </div>
+
+                  <!-- Rank 2 -->
+                  <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group" onclick="handleVideoItemClick('males-liwet')">
+                    <span class="font-display font-extrabold text-2xl text-slate-400 w-5 text-center">2</span>
+                    <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=150&q=80" alt="Thumb" class="w-14 h-10 object-cover rounded-lg shrink-0"/>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-xs font-bold text-slate-200 group-hover:text-amber-300 line-clamp-1">MALES : Nasi Liwet Ter Endul</p>
+                      <p class="text-[10px] text-slate-400">1.7M tayangan • Kuliner</p>
+                    </div>
+                  </div>
+
+                  <!-- Rank 3 -->
+                  <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group" onclick="handleVideoItemClick('mager-wudhu')">
+                    <span class="font-display font-extrabold text-2xl text-amber-600 w-5 text-center">3</span>
+                    <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=150&q=80" alt="Thumb" class="w-14 h-10 object-cover rounded-lg shrink-0"/>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-xs font-bold text-slate-200 group-hover:text-amber-300 line-clamp-1">MAGER : Belajar Wudhu Abang L</p>
+                      <p class="text-[10px] text-slate-400">893K tayangan • Anak & Edukasi</p>
+                    </div>
+                  </div>
+
+                  <!-- Rank 4 -->
+                  <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group" onclick="handleVideoItemClick('lestalk-soimah1')">
+                    <span class="font-display font-extrabold text-xl text-slate-500 w-5 text-center">4</span>
+                    <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=150&q=80" alt="Thumb" class="w-14 h-10 object-cover rounded-lg shrink-0"/>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-xs font-bold text-slate-200 group-hover:text-amber-300 line-clamp-1">LESTALK : Soimah & Koko</p>
+                      <p class="text-[10px] text-slate-400">492K tayangan • Talkshow</p>
+                    </div>
+                  </div>
+
+                  <!-- Rank 5 -->
+                  <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group" onclick="handleVideoItemClick('males-rafael')">
+                    <span class="font-display font-extrabold text-xl text-slate-500 w-5 text-center">5</span>
+                    <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=150&q=80" alt="Thumb" class="w-14 h-10 object-cover rounded-lg shrink-0"/>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-xs font-bold text-slate-200 group-hover:text-amber-300 line-clamp-1">MALES : Seblak Papeda Rafael</p>
+                      <p class="text-[10px] text-slate-400">604K tayangan • Cooking</p>
+                    </div>
+                  </div>
+                </div>
+
+                <button onclick="handleDirectLinkClick()" class="w-full mt-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-300 transition-colors text-center">
+                  Lihat Tangga Tayang Lengkap
+                </button>
+              </div>
+
+              <!-- ================= BANNER_KOTAK (REQUIRED AD PLACEMENT) ================= -->
+              <!-- Rule: Tempatkan BANNER_KOTAK persis di sidebar kanan di antara section Popular Movies dan Favorites -->
+              <div class="w-full p-3 rounded-2xl bg-[#12121a] border border-[#252538] flex flex-col items-center justify-center overflow-hidden">
+                <div class="flex items-center justify-between w-full max-w-[320px] mb-1.5 px-0.5">
+                  <span class="text-[9px] uppercase font-bold tracking-wider text-slate-400">Sponsor Iklan 320x50</span>
+                  <span class="text-[9px] text-amber-400 cursor-pointer" onclick="handleDirectLinkClick()">Eksklusif</span>
+                </div>
+                <!-- Banner Kotak 320x50 Script Injection Target -->
+                <div id="adBannerKotakWrapper" class="w-full max-w-[320px] min-h-[50px] flex items-center justify-center bg-black/40 rounded-lg overflow-hidden cursor-pointer" onclick="handleDirectLinkClick()">
+                  <div id="adBannerKotakContainer" class="w-[320px] h-[50px] flex items-center justify-center">
+                    <script>
+                      atOptions = {
+                        'key' : '00b38cf5be6dab59977a962db0643033',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                      };
+                    </script>
+                    <script src="https://www.highrevenueformat.com/00b38cf5be6dab59977a962db0643033/invoke.js"></script>
+                  </div>
+                </div>
+              </div>
+
+              <!-- WIDGET 2: FAVORITES & STARS -->
+              <div class="p-5 rounded-2xl bg-[#13131c] border border-[#222230] shadow-xl space-y-4">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-display font-bold text-base text-slate-100 flex items-center gap-2">
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <span>Favorites & Bintang Tamu</span>
+                  </h4>
+                </div>
+
+                <div class="space-y-3">
+                  <!-- Star 1: Lesti Kejora -->
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                    <div class="flex items-center gap-3">
+                      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Lesti Kejora" class="w-10 h-10 rounded-full object-cover ring-2 ring-amber-400/50"/>
+                      <div>
+                        <p class="text-xs font-bold text-slate-200">Lesti Kejora</p>
+                        <p class="text-[10px] text-slate-400">Penyanyi & Host Utama</p>
+                      </div>
+                    </div>
+                    <button onclick="showToast('Berhasil follow Lesti Kejora')" class="px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-bold hover:bg-amber-400/30">
+                      Ikuti
+                    </button>
+                  </div>
+
+                  <!-- Star 2: Rizky Billar -->
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                    <div class="flex items-center gap-3">
+                      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Rizky Billar" class="w-10 h-10 rounded-full object-cover ring-2 ring-amber-400/50"/>
+                      <div>
+                        <p class="text-xs font-bold text-slate-200">Rizky Billar</p>
+                        <p class="text-[10px] text-slate-400">Aktor & Executive Producer</p>
+                      </div>
+                    </div>
+                    <button onclick="showToast('Berhasil follow Rizky Billar')" class="px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-bold hover:bg-amber-400/30">
+                      Ikuti
+                    </button>
+                  </div>
+
+                  <!-- Star 3: Muhammad Leslar (Baby L) -->
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                    <div class="flex items-center gap-3">
+                      <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=100&q=80" alt="Baby L" class="w-10 h-10 rounded-full object-cover ring-2 ring-amber-400/50"/>
+                      <div>
+                        <p class="text-xs font-bold text-slate-200">Abang L (Baby L)</p>
+                        <p class="text-[10px] text-slate-400">Bintang Cilik 'Mager'</p>
+                      </div>
+                    </div>
+                    <button onclick="showToast('Berhasil follow Abang L')" class="px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-bold hover:bg-amber-400/30">
+                      Ikuti
+                    </button>
+                  </div>
+
+                  <!-- Star 4: Soimah -->
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                    <div class="flex items-center gap-3">
+                      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" alt="Soimah" class="w-10 h-10 rounded-full object-cover ring-2 ring-slate-600"/>
+                      <div>
+                        <p class="text-xs font-bold text-slate-200">Soimah Pancawati</p>
+                        <p class="text-[10px] text-slate-400">Bintang Tamu Spesial LESTALK</p>
+                      </div>
+                    </div>
+                    <button onclick="showToast('Berhasil follow Soimah')" class="px-2.5 py-1 rounded-full bg-white/10 text-slate-300 text-[11px] font-bold hover:bg-white/20">
+                      Ikuti
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Add to Watchlist quick shortcut -->
+                <button onclick="handleDirectLinkClick()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-lg">
+                  <i data-lucide="play-circle" class="w-4 h-4"></i>
+                  <span>Mulai Nonton Maraton Sekarang</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ================= OTHER SIDEBAR PAGES (DYNAMIC ROUTING) ================= -->
+
+        <!-- 1. WATCH LIST VIEW -->
+        <div id="watchlistNavView" class="hidden px-4 lg:px-8 py-6 space-y-6">
+          <div class="flex items-center justify-between border-b border-[#1f1f2b] pb-4">
+            <div>
+              <h2 class="text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+                <i data-lucide="bookmark" class="w-6 h-6 text-amber-400"></i>
+                <span>Daftar Putar Watch List</span>
+              </h2>
+              <p class="text-sm text-slate-400">Video & program yang kamu simpan untuk ditonton nanti.</p>
+            </div>
+            <button onclick="clearWatchlist()" class="px-3 py-1.5 rounded-lg text-xs bg-red-500/10 text-red-400 hover:bg-red-500/20 font-semibold transition-colors">
+              Kosongkan List
+            </button>
+          </div>
+          
+          <div id="watchlistGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            <!-- Dynamically populated or default items -->
+          </div>
+        </div>
+
+        <!-- 2. COMING SOON VIEW -->
+        <div id="comingsoonNavView" class="hidden px-4 lg:px-8 py-6 space-y-6">
+          <div class="border-b border-[#1f1f2b] pb-4">
+            <h2 class="text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+              <i data-lucide="clock" class="w-6 h-6 text-amber-400"></i>
+              <span>Segera Hadir (Coming Soon)</span>
+            </h2>
+            <p class="text-sm text-slate-400">Tayangan perdana, podcast spesial, dan konser keluarga Leslar.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Coming soon card 1 -->
+            <div class="p-4 rounded-2xl bg-[#14141e] border border-[#252538] space-y-3">
+              <div class="relative aspect-video rounded-xl overflow-hidden bg-black">
+                <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=600&q=80" alt="Konser" class="w-full h-full object-cover opacity-80"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex flex-col justify-end p-3">
+                  <span class="px-2 py-0.5 rounded bg-amber-400 text-black text-[10px] font-extrabold w-max">TAYANG PERDANA</span>
+                  <p class="text-sm font-bold text-white mt-1">Konser 1 Dekade Lesti Kejora: Melodi Cinta</p>
+                </div>
+              </div>
+              <p class="text-xs text-slate-400">Rangkuman perjalanan karier Lesti Kejora dari awal audisi hingga panggung megah istora.</p>
+              <div class="flex items-center justify-between pt-2 border-t border-white/10">
+                <span class="text-xs font-semibold text-amber-400">Rilis: Minggu, 20:00 WIB</span>
+                <button onclick="showToast('Pengingat dipasang untuk konser Lesti!')" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1">
+                  <i data-lucide="bell-plus" class="w-3.5 h-3.5"></i> Ingatkan Saya
+                </button>
+              </div>
+            </div>
+
+            <!-- Coming soon card 2 -->
+            <div class="p-4 rounded-2xl bg-[#14141e] border border-[#252538] space-y-3">
+              <div class="relative aspect-video rounded-xl overflow-hidden bg-black">
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80" alt="Lestalk Eksklusif" class="w-full h-full object-cover opacity-80"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex flex-col justify-end p-3">
+                  <span class="px-2 py-0.5 rounded bg-red-600 text-white text-[10px] font-extrabold w-max">LESTALK SPECIAL</span>
+                  <p class="text-sm font-bold text-white mt-1">LESTALK: Bincang Hangat Bersama Rossa</p>
+                </div>
+              </div>
+              <p class="text-xs text-slate-400">Kupas tuntas rahasia vokal dan persahabatan manis antara Diva Indonesia dan Lesti Kejora.</p>
+              <div class="flex items-center justify-between pt-2 border-t border-white/10">
+                <span class="text-xs font-semibold text-amber-400">Rilis: Selasa Depan</span>
+                <button onclick="showToast('Pengingat dipasang untuk Lestalk Rossa!')" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1">
+                  <i data-lucide="bell-plus" class="w-3.5 h-3.5"></i> Ingatkan Saya
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. DISCOVERY VIEW -->
+        <div id="discoveryNavView" class="hidden px-4 lg:px-8 py-6 space-y-6">
+          <div class="border-b border-[#1f1f2b] pb-4">
+            <h2 class="text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+              <i data-lucide="compass" class="w-6 h-6 text-amber-400"></i>
+              <span>Discovery & Kategori</span>
+            </h2>
+            <p class="text-sm text-slate-400">Jelajahi berbagai genre konten Leslar Entertainment.</p>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <div onclick="filterCategory('LESTALK')" class="p-6 rounded-2xl bg-gradient-to-br from-red-950/60 to-red-900/20 border border-red-500/30 hover:scale-102 transition-all cursor-pointer text-center space-y-2">
+              <i data-lucide="mic" class="w-8 h-8 text-red-400 mx-auto"></i>
+              <h4 class="font-bold text-base text-slate-100">LESTALK Podcast</h4>
+              <p class="text-xs text-slate-400">42 Episode</p>
+            </div>
+            <div onclick="filterCategory('MAGER')" class="p-6 rounded-2xl bg-gradient-to-br from-amber-950/60 to-amber-900/20 border border-amber-500/30 hover:scale-102 transition-all cursor-pointer text-center space-y-2">
+              <i data-lucide="smile" class="w-8 h-8 text-amber-400 mx-auto"></i>
+              <h4 class="font-bold text-base text-slate-100">MAGER (Kids & Family)</h4>
+              <p class="text-xs text-slate-400">89 Episode</p>
+            </div>
+            <div onclick="filterCategory('MALES')" class="p-6 rounded-2xl bg-gradient-to-br from-emerald-950/60 to-emerald-900/20 border border-emerald-500/30 hover:scale-102 transition-all cursor-pointer text-center space-y-2">
+              <i data-lucide="utensils" class="w-8 h-8 text-emerald-400 mx-auto"></i>
+              <h4 class="font-bold text-base text-slate-100">MALES (Masakan Lesti)</h4>
+              <p class="text-xs text-slate-400">54 Resep</p>
+            </div>
+            <div onclick="filterCategory('PULES')" class="p-6 rounded-2xl bg-gradient-to-br from-purple-950/60 to-purple-900/20 border border-purple-500/30 hover:scale-102 transition-all cursor-pointer text-center space-y-2">
+              <i data-lucide="music" class="w-8 h-8 text-purple-400 mx-auto"></i>
+              <h4 class="font-bold text-base text-slate-100">Musik & Single</h4>
+              <p class="text-xs text-slate-400">120 Lagu</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. FRIENDS & KOMUNITAS VIEW -->
+        <div id="friendsNavView" class="hidden px-4 lg:px-8 py-6 space-y-6">
+          <div class="border-b border-[#1f1f2b] pb-4">
+            <h2 class="text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+              <i data-lucide="users" class="w-6 h-6 text-amber-400"></i>
+              <span>Komunitas Leslar Lovers (Friends)</span>
+            </h2>
+            <p class="text-sm text-slate-400">Temukan teman sesama penggemar dan diskusikan episode favorit.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-2 space-y-4">
+              <!-- Post 1 -->
+              <div class="p-5 rounded-2xl bg-[#14141e] border border-[#252538] space-y-3">
+                <div class="flex items-center gap-3">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="w-10 h-10 rounded-full object-cover"/>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-200">Nurul Hidayah (Leslar Jabar)</h5>
+                    <p class="text-[10px] text-slate-400">Diposting 2 jam lalu</p>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Episode LESTALK bareng AS TEAM kemarin bikin terharu banget ya ampun. Salut sama perjuangan tim di balik layar yang selalu kompak dan solid menemani bunda Lesti & papa Billar! ❤️
+                </p>
+                <div class="flex items-center gap-4 pt-2 border-t border-white/10 text-xs text-slate-400">
+                  <button onclick="showToast('Menyukai postingan!')" class="flex items-center gap-1 hover:text-amber-400"><i data-lucide="heart" class="w-4 h-4"></i> 2.4k</button>
+                  <button onclick="showToast('Buka komentar')" class="flex items-center gap-1 hover:text-amber-400"><i data-lucide="message-circle" class="w-4 h-4"></i> 148 Komentar</button>
+                  <button onclick="shareChannel()" class="flex items-center gap-1 hover:text-amber-400"><i data-lucide="share" class="w-4 h-4"></i> Bagikan</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Online friends widget -->
+            <div class="p-5 rounded-2xl bg-[#14141e] border border-[#252538] space-y-3 h-max">
+              <h4 class="font-bold text-sm text-slate-200">Teman Online (Nobar)</h4>
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-2 text-slate-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Siti Aminah (Surabaya)
+                  </span>
+                  <button onclick="showToast('Undangan Watch Party terkirim!')" class="text-amber-400 hover:underline text-[11px]">Ajak Nobar</button>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-2 text-slate-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Rizka Putri (Medan)
+                  </span>
+                  <button onclick="showToast('Undangan Watch Party terkirim!')" class="text-amber-400 hover:underline text-[11px]">Ajak Nobar</button>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-2 text-slate-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Fajar Pratama (Jakarta)
+                  </span>
+                  <button onclick="showToast('Undangan Watch Party terkirim!')" class="text-amber-400 hover:underline text-[11px]">Ajak Nobar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. PARTIES (WATCH PARTY) VIEW -->
+        <div id="partiesNavView" class="hidden px-4 lg:px-8 py-6 space-y-6">
+          <div class="border-b border-[#1f1f2b] pb-4 flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h2 class="text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+                <i data-lucide="tv" class="w-6 h-6 text-red-500"></i>
+                <span>Watch Parties (Nobar Bersama)</span>
+                <span class="text-xs bg-red-600 text-white font-extrabold px-2 py-0.5 rounded-full animate-pulse">LIVE</span>
+              </h2>
+              <p class="text-sm text-slate-400">Nonton streaming bareng ribuan fans dengan obrolan interaktif langsung.</p>
+            </div>
+            <button onclick="handleDirectLinkClick()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold transition-all shadow-md">
+              + Buat Room Nobar Baru
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Room Active 1 -->
+            <div class="p-5 rounded-2xl bg-[#14141e] border border-amber-500/30 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-amber-300">ROOM #01 - NOBAR RESMI</span>
+                <span class="text-[11px] text-emerald-400 flex items-center gap-1">● 1,420 Penonton</span>
+              </div>
+              <h4 class="font-bold text-slate-100 text-sm">Maraton LESTALK Spesial Bintang Tamu Terfavorit</h4>
+              <button onclick="openVideoModal('lestalk-team')" class="w-full py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                <span>Gabung Room Nobar</span>
+              </button>
+            </div>
+
+            <!-- Room Active 2 -->
+            <div class="p-5 rounded-2xl bg-[#14141e] border border-[#252538] space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-300">ROOM #02 - KULINER LOVERS</span>
+                <span class="text-[11px] text-emerald-400 flex items-center gap-1">● 840 Penonton</span>
+              </div>
+              <h4 class="font-bold text-slate-100 text-sm">Bikin Ngiler: Semua Resep MALES Bunda Lesti</h4>
+              <button onclick="openVideoModal('males-super')" class="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                <span>Gabung Room Nobar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. MEDIA VIEW -->
+        <div id="mediaNavView" class="hidden px-4 lg:px-8 py-6 space-y-6">
+          <div class="border-b border-[#1f1f2b] pb-4">
+            <h2 class="text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+              <i data-lucide="film" class="w-6 h-6 text-amber-400"></i>
+              <span>Galeri Media & Behind The Scene</span>
+            </h2>
+            <p class="text-sm text-slate-400">Foto eksklusif, wallpaper, dan arsip momen keluarga Leslar.</p>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="handleDirectLinkClick()">
+              <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=500&q=80" alt="Media 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs font-bold text-white">Lihat HD</div>
+            </div>
+            <div class="rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="handleDirectLinkClick()">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80" alt="Media 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs font-bold text-white">Lihat HD</div>
+            </div>
+            <div class="rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="handleDirectLinkClick()">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="Media 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs font-bold text-white">Lihat HD</div>
+            </div>
+            <div class="rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="handleDirectLinkClick()">
+              <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=500&q=80" alt="Media 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs font-bold text-white">Lihat HD</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. SETTING VIEW -->
+        <div id="settingNavView" class="hidden px-4 lg:px-8 py-6 space-y-6">
+          <div class="border-b border-[#1f1f2b] pb-4">
+            <h2 class="text-2xl font-display font-extrabold text-slate-100 flex items-center gap-2">
+              <i data-lucide="settings" class="w-6 h-6 text-amber-400"></i>
+              <span>Pengaturan & Preferensi Streaming</span>
+            </h2>
+            <p class="text-sm text-slate-400">Sesuaikan kualitas pemutaran, notifikasi, dan tema tampilan.</p>
+          </div>
+
+          <div class="max-w-2xl space-y-5">
+            <div class="p-4 rounded-2xl bg-[#14141e] border border-[#252538] flex items-center justify-between">
+              <div>
+                <h5 class="text-sm font-bold text-slate-200">Kualitas Video Otomatis</h5>
+                <p class="text-xs text-slate-400">Sesuaikan dengan kecepatan internet Anda (1080p Full HD disarankan).</p>
+              </div>
+              <select class="bg-[#1b1b26] border border-[#2d2d40] text-xs text-slate-200 rounded-lg px-3 py-1.5 outline-none">
+                <option value="1080p">1080p Full HD</option>
+                <option value="720p">720p HD</option>
+                <option value="480p">480p Hemat Data</option>
+                <option value="auto">Auto (Otomatis)</option>
+              </select>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-[#14141e] border border-[#252538] flex items-center justify-between">
+              <div>
+                <h5 class="text-sm font-bold text-slate-200">Autoplay Video Berikutnya</h5>
+                <p class="text-xs text-slate-400">Putar episode berikutnya secara otomatis setelah video selesai.</p>
+              </div>
+              <input type="checkbox" checked class="w-4 h-4 accent-amber-400 rounded cursor-pointer"/>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-[#14141e] border border-[#252538] flex items-center justify-between">
+              <div>
+                <h5 class="text-sm font-bold text-slate-200">Mode Tema Website</h5>
+                <p class="text-xs text-slate-400">Pilih antara Dark Mode elegan atau Light Mode bersih.</p>
+              </div>
+              <button onclick="toggleThemeMode()" class="px-4 py-1.5 rounded-lg bg-amber-400 text-black text-xs font-bold">
+                Ubah Mode
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ================= POPUP VIDEO PLAYER MODAL ================= -->
+  <div id="videoPlayerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 transition-all">
+    <div class="relative w-full max-w-4xl bg-[#12121b] border border-[#28283a] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95">
+      
+      <!-- Modal Top Controls -->
+      <div class="flex items-center justify-between p-4 bg-[#181824] border-b border-white/10">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+          <span class="text-xs font-bold tracking-wider text-amber-300 uppercase">Pemutar Streaming HD</span>
+        </div>
+        <button onclick="closeVideoModal()" class="p-1.5 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors" title="Tutup (Esc)">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Video Screen Simulation Area -->
+      <div class="relative aspect-video bg-black w-full overflow-hidden flex items-center justify-center group">
+        <video id="activeVideoElement" class="w-full h-full object-cover" poster="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1280&q=80" playsinline loop>
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+          Browser tidak mendukung pemutar video html5.
+        </video>
+
+        <!-- Video Player Overlay Controls -->
+        <div id="videoControlsOverlay" class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 pointer-events-none">
+          <div class="flex justify-between items-center pointer-events-auto">
+            <span id="modalVideoBadge" class="px-2.5 py-1 rounded bg-red-600 text-[11px] font-black text-white">LESTALK</span>
+            <button onclick="handleDirectLinkClick()" class="px-3 py-1 rounded-full bg-amber-400 text-black text-xs font-bold hover:scale-105 transition-transform">
+              Buka di Tab Baru ↗
+            </button>
+          </div>
+
+          <!-- Play/Pause Big Center Button -->
+          <button id="modalPlayCenterBtn" onclick="togglePlayPause()" class="pointer-events-auto self-center p-4 rounded-full bg-amber-400/90 hover:bg-amber-400 text-black shadow-2xl transition-transform active:scale-90">
+            <i id="centerPlayIcon" data-lucide="play" class="w-8 h-8 fill-current ml-0.5"></i>
+          </button>
+
+          <!-- Bottom Scrub Bar & Actions -->
+          <div class="space-y-2 pointer-events-auto">
+            <div class="w-full bg-white/20 h-1.5 rounded-full overflow-hidden cursor-pointer">
+              <div id="videoProgressBar" class="bg-amber-400 h-full w-1/4 rounded-full transition-all"></div>
+            </div>
+            <div class="flex items-center justify-between text-xs text-slate-300">
+              <div class="flex items-center gap-3">
+                <button onclick="togglePlayPause()"><i id="bottomPlayIcon" data-lucide="play" class="w-4 h-4"></i></button>
+                <span id="videoTimeDisplay" class="font-mono text-[11px]">04:12 / 1:14:51</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-[10px] bg-white/10 px-1.5 py-0.5 rounded font-mono">1080p 60fps</span>
+                <button onclick="toggleMute()"><i id="volumeIcon" data-lucide="volume-2" class="w-4 h-4"></i></button>
+                <button onclick="toggleFullScreen()"><i data-lucide="maximize" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Details & Actions (Below Player) -->
+      <div class="p-5 overflow-y-auto space-y-4">
+        <div>
+          <h3 id="modalVideoTitle" class="text-base sm:text-lg font-bold text-slate-100">
+            LESTALK : SELALU CERIA, TERNYATA AS TEAM MENYIMPAN BANYAK KESEDIHAN, SEMUA ...
+          </h3>
+          <p id="modalVideoStats" class="text-xs text-slate-400 mt-1">
+            ▷ 814.921 tayangan • 9 jam lalu • #LeslarEntertainment #LESTALK
+          </p>
+        </div>
+
+        <!-- Channel Row & Action Buttons -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-white/10">
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="w-10 h-10 rounded-full object-cover ring-2 ring-amber-400/30"/>
+            <div>
+              <p class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                Leslar Entertainment
+                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-slate-300"></i>
+              </p>
+              <p class="text-[11px] text-slate-400">2,31 jt subscriber</p>
+            </div>
+          </div>
+
+          <!-- Like, Dislike, Add Watchlist, Share -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="toggleLikeVideo()" id="modalLikeBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors">
+              <i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i>
+              <span id="likeCounter">42 rb</span>
+            </button>
+            <button onclick="toggleDislikeVideo()" id="modalDislikeBtn" class="p-2 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors">
+              <i data-lucide="thumbs-down" class="w-3.5 h-3.5"></i>
+            </button>
+            <button onclick="addCurrentToWatchlist()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors">
+              <i data-lucide="bookmark-plus" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Simpan</span>
+            </button>
+            <button onclick="shareChannel()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors">
+              <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+              <span>Bagikan</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= CHANNEL BIO MODAL ================= -->
+  <div id="bioModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#151522] border border-[#2b2b3d] rounded-2xl max-w-lg w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h4 class="font-display font-bold text-lg text-slate-100">Tentang Saluran</h4>
+        <button onclick="closeBioModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <p>
+          <strong>Leslar Entertainment</strong> adalah wadah kreatif dan rumah produksi resmi yang didirikan oleh <strong>Lesti Kejora & Rizky Billar</strong>.
+        </p>
+        <p>
+          Menghadirkan konten keluarga inspiratif, bincang mendalam LESTALK, keceriaan tumbuh kembang anak dalam program MAGER, petualangan resep masakan khas nusantara dalam MALES, serta rilisan karya musik terbaik.
+        </p>
+        <div class="pt-3 border-t border-white/10 space-y-1 text-xs text-slate-400">
+          <p>📍 Lokasi: Indonesia</p>
+          <p>📅 Bergabung: Juni 2021</p>
+          <p>💼 Kontak Bisnis: business@leslarentertainment.id</p>
+        </div>
+      </div>
+      <button onclick="closeBioModal()" class="w-full py-2.5 rounded-xl bg-amber-400 text-black font-bold text-xs">
+        Tutup
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION CONTAINER ================= -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ================= CORE JAVASCRIPT ================= -->
+  <script>
+    // ================= MONETISASI & IKLAN KONFIGURASI =================
+    const DIRECT_LINK = "https://www.profitableratecpmnetwork.com/mn3irvsp?key=188405ffbc395255e839d9c1d8d425a5";
+
+    // Video Database
+    const VIDEO_DATABASE = {
+      'lestalk-team': {
+        id: 'lestalk-team',
+        category: 'LESTALK',
+        title: 'LESTALK : SELALU CERIA, TERNYATA AS TEAM MENYIMPAN BANYAK KESEDIHAN, SEMUA ...',
+        duration: '1.14.51',
+        views: '814 rb',
+        time: '9 jam lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1280&q=80',
+        quote: 'AS TEAM : "KALAU KITA DIAM, TERNYATA KITA LAGI SULIT, KE BACA AJA SAMA MEREKA..."'
+      },
+      'lestalk-soimah1': {
+        id: 'lestalk-soimah1',
+        category: 'LESTALK',
+        title: 'LESTALK : JAUH DARI ANAK, DIKIRA JAB**Y, GAK BOLEH BAWA SUAMI, PERJUANGAN SOIMAH JAD...',
+        duration: '1.00.04',
+        views: '492 rb',
+        time: '2 mgg lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1280&q=80',
+        quote: 'KOKO : "DIA NGOMONG, KALAU PENGEN CEPET SUKSES GAK USAH BAWA SUAMI"'
+      },
+      'lestalk-gilga': {
+        id: 'lestalk-gilga',
+        category: 'LESTALK',
+        title: 'LESTALK : DULU DIBAYAR 35RB! GILGA SEKARANG SUKSES KARENA BUCIN?!',
+        duration: '55.01',
+        views: '239 rb',
+        time: '2 h lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1280&q=80',
+        quote: 'GILGA : "AKU SANGAT SAYANG ISTRIKU, TANPA DIA AKU GAK NYANYI LAGI!"'
+      },
+      'lestalk-soimah2': {
+        id: 'lestalk-soimah2',
+        category: 'LESTALK',
+        title: 'LESTALK : SEMPAT BENCI ORANG TUA... KERAS SANG IBU JADIKAN SOIMAH SUKSES...',
+        duration: '1.12.30',
+        views: '573 rb',
+        time: '3 mgg lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1280&q=80',
+        quote: 'SOIMAH : "SEMPAT BENCI ORANG TUA... KERAS SANG IBU JADIKAN SUKSES"'
+      },
+      'mager-wudhu': {
+        id: 'mager-wudhu',
+        category: 'MAGER',
+        title: 'MAGER : BELAJAR WUDHU BERAKHIR BASAH ...',
+        duration: '13.28',
+        views: '893 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1280&q=80',
+        quote: 'ABANG L DIAJARIN WUDHU SAMA PAPA BILLAR?!'
+      },
+      'mager-pr': {
+        id: 'mager-pr',
+        category: 'MAGER',
+        title: 'MAGER : PR ABANG L DIKERJAIN PAPA BILLAR?!',
+        duration: '16.22',
+        views: '269 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=1280&q=80',
+        quote: 'ABANG L SUKA DINOSAURUS!'
+      },
+      'mager-playground': {
+        id: 'mager-playground',
+        category: 'MAGER',
+        title: 'MAGER : GEMBIRANYA ABANG L SAAT BERMAIN D...',
+        duration: '10.48',
+        views: '335 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=1280&q=80',
+        quote: 'POSE KECE ABANG L DI PLAYGROUND!'
+      },
+      'mager-sekolah': {
+        id: 'mager-sekolah',
+        category: 'MAGER',
+        title: 'MAGER : PENASARAN DEH... PELAJARAN APA YANG ...',
+        duration: '17.49',
+        views: '378 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1280&q=80',
+        quote: 'BERMAIN BERSAMA TEMAN TEMAN DI SEKOLAH'
+      },
+      'mager-musisi': {
+        id: 'mager-musisi',
+        category: 'MAGER',
+        title: 'MAGER : ABANG L MENJADI MUSISI CILIK SETELAH ...',
+        duration: '13.54',
+        views: '307 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1280&q=80',
+        quote: 'KADO SPECIAL UNTUK ABANG L DARI FANS'
+      },
+      'mager-villa': {
+        id: 'mager-villa',
+        category: 'MAGER',
+        title: 'MAGER : ABANG L MAIN PEROSOTAN YANG TINGGI ...',
+        duration: '10.53',
+        views: '278 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=1280&q=80',
+        quote: 'TAMAN BERMAIN DI VILLA PUNCAK'
+      },
+      'males-super': {
+        id: 'males-super',
+        category: 'MALES',
+        title: 'MALES : MASAKAN BUNDA LESTI YANG SUPER ENDUL!...',
+        duration: '23.41',
+        views: '264 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1280&q=80',
+        quote: 'SPAGHETTI ALA BUNDA LESTI'
+      },
+      'males-seblak': {
+        id: 'males-seblak',
+        category: 'MALES',
+        title: 'MALES : SEBLAK BUATAN BUNDA LESTI DICIPIN PA...',
+        duration: '17.37',
+        views: '482 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=1280&q=80',
+        quote: 'SEBLAK SHIRATAKI ALA BUNDA LESTI'
+      },
+      'males-liwet': {
+        id: 'males-liwet',
+        category: 'MALES',
+        title: 'MALES : NASI LIWET TER ENDUL ALA BUNDA LESTI!!...',
+        duration: '16.27',
+        views: '1,7 jt',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=1280&q=80',
+        quote: 'NGALIWET BARENG DI VILLA PUNCAK!'
+      },
+      'males-mieayam': {
+        id: 'males-mieayam',
+        category: 'MALES',
+        title: 'MALES : RESEP RAHASIA MIE AYAM LEGEND BUNDA ...',
+        duration: '17.01',
+        views: '320 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1280&q=80',
+        quote: 'MIE AYAM BUNDA LESTI REBORN!!'
+      },
+      'males-salad': {
+        id: 'males-salad',
+        category: 'MALES',
+        title: 'MALES : RESEP RAHASIA LESTI KEJORA, SALAD BUA...',
+        duration: '19.19',
+        views: '160 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1280&q=80',
+        quote: 'PESONA SALAD BUAH LESTI KEJORA'
+      },
+      'males-rafael': {
+        id: 'males-rafael',
+        category: 'MALES',
+        title: 'MALES : LESTI KEJORA MENANTANG RAFAEL BIKI...',
+        duration: '22.47',
+        views: '604 rb',
+        time: '3 thn lalu',
+        thumbnail: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=1280&q=80',
+        quote: 'SEBLAK PAPEDA ALA DUTA SEBLAK INDONESIA'
+      }
+    };
+
+    // Watchlist State
+    let userWatchlist = ['lestalk-team', 'males-liwet', 'mager-wudhu'];
+    let currentActiveVideoId = 'lestalk-team';
+    let isSubscribed = false;
+    let isNightMode = true;
+
+    // Direct Link Click Function
+    function handleDirectLinkClick() {
+      window.open(DIRECT_LINK, '_blank');
+    }
+
+    // Video Click Handler (Rule 1: Membuka modal player DAN mengarahkan klik ke DIRECT_LINK di tab baru)
+    function handleVideoItemClick(videoId) {
+      // 1. Buka DIRECT_LINK di tab baru
+      handleDirectLinkClick();
+      // 2. Buka Modal Video Player Interaktif
+      openVideoModal(videoId);
+    }
+
+    // Modal Video Player Open
+    function openVideoModal(videoId) {
+      const videoData = VIDEO_DATABASE[videoId] || VIDEO_DATABASE['lestalk-team'];
+      currentActiveVideoId = videoId;
+
+      const modal = document.getElementById('videoPlayerModal');
+      const title = document.getElementById('modalVideoTitle');
+      const stats = document.getElementById('modalVideoStats');
+      const badge = document.getElementById('modalVideoBadge');
+      const videoElem = document.getElementById('activeVideoElement');
+
+      if (modal && title && stats && badge) {
+        title.textContent = videoData.title;
+        stats.textContent = `▷ ${videoData.views} tayangan • ${videoData.time} • #${videoData.category} #LeslarEntertainment`;
+        badge.textContent = videoData.category;
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+
+        if (videoElem) {
+          videoElem.play().catch(e => console.log('Autoplay handled'));
+          updatePlayIcons(true);
+        }
+      }
+    }
+
+    // Close Modal Video Player
+    function closeVideoModal() {
+      const modal = document.getElementById('videoPlayerModal');
+      const videoElem = document.getElementById('activeVideoElement');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+        if (videoElem) {
+          videoElem.pause();
+          updatePlayIcons(false);
+        }
+      }
+    }
+
+    // Toggle Play / Pause in Modal
+    function togglePlayPause() {
+      const videoElem = document.getElementById('activeVideoElement');
+      if (!videoElem) return;
+      if (videoElem.paused) {
+        videoElem.play();
+        updatePlayIcons(true);
+      } else {
+        videoElem.pause();
+        updatePlayIcons(false);
+      }
+    }
+
+    function updatePlayIcons(isPlaying) {
+      const centerIcon = document.getElementById('centerPlayIcon');
+      const bottomIcon = document.getElementById('bottomPlayIcon');
+      if (isPlaying) {
+        if (centerIcon) centerIcon.setAttribute('data-lucide', 'pause');
+        if (bottomIcon) bottomIcon.setAttribute('data-lucide', 'pause');
+      } else {
+        if (centerIcon) centerIcon.setAttribute('data-lucide', 'play');
+        if (bottomIcon) bottomIcon.setAttribute('data-lucide', 'play');
+      }
+      lucide.createIcons();
+    }
+
+    function toggleMute() {
+      const videoElem = document.getElementById('activeVideoElement');
+      const icon = document.getElementById('volumeIcon');
+      if (!videoElem) return;
+      videoElem.muted = !videoElem.muted;
+      if (icon) {
+        icon.setAttribute('data-lucide', videoElem.muted ? 'volume-x' : 'volume-2');
+        lucide.createIcons();
+      }
+      showToast(videoElem.muted ? 'Suara dinonaktifkan' : 'Suara aktif');
+    }
+
+    function toggleFullScreen() {
+      const videoElem = document.getElementById('activeVideoElement');
+      if (!videoElem) return;
+      if (videoElem.requestFullscreen) {
+        videoElem.requestFullscreen();
+      }
+    }
+
+    // Subscribe Toggle
+    function toggleSubscribe() {
+      isSubscribed = !isSubscribed;
+      const btn = document.getElementById('subscribeBtn');
+      const btnText = document.getElementById('subscribeBtnText');
+      const subCountText = document.getElementById('subscriberCountText');
+
+      if (btn && btnText) {
+        if (isSubscribed) {
+          btn.classList.remove('bg-white', 'text-black');
+          btn.classList.add('bg-white/20', 'text-white');
+          btnText.textContent = 'Disubscribe ✓';
+          if (subCountText) subCountText.textContent = '2,32 jt subscriber';
+          showToast('Terima kasih telah berlangganan Leslar Entertainment! Lonceng diaktifkan.');
+        } else {
+          btn.classList.add('bg-white', 'text-black');
+          btn.classList.remove('bg-white/20', 'text-white');
+          btnText.textContent = 'Subscribe';
+          if (subCountText) subCountText.textContent = '2,31 jt subscriber';
+          showToast('Anda berhenti berlangganan.');
+        }
+      }
+    }
+
+    // Toggle Night & Light Mode (Rule 4)
+    function toggleThemeMode() {
+      isNightMode = !isNightMode;
+      const html = document.documentElement;
+      const body = document.body;
+      const themeIcon = document.getElementById('themeIcon');
+      const themeLabel = document.getElementById('themeLabel');
+
+      if (isNightMode) {
+        html.classList.add('dark');
+        body.classList.remove('bg-[#f8fafc]', 'text-slate-800');
+        body.classList.add('bg-[#0b0b0e]', 'text-slate-100');
+        if (themeIcon) themeIcon.innerHTML = '<i data-lucide="moon" class="w-4 h-4 text-amber-300"></i>';
+        if (themeLabel) themeLabel.textContent = 'Night';
+        showToast('Beralih ke Night Mode elegan (#0b0b0e)');
+      } else {
+        html.classList.remove('dark');
+        body.classList.remove('bg-[#0b0b0e]', 'text-slate-100');
+        body.classList.add('bg-[#f8fafc]', 'text-slate-800');
+        if (themeIcon) themeIcon.innerHTML = '<i data-lucide="sun" class="w-4 h-4 text-amber-500"></i>';
+        if (themeLabel) themeLabel.textContent = 'Light';
+        showToast('Beralih ke Light Mode bersih (#f8fafc)');
+      }
+      lucide.createIcons();
+    }
+
+    // Live Search Filter (Rule 3)
+    const searchInput = document.getElementById('globalSearchInput');
+    const clearBtn = document.getElementById('clearSearchBtn');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase().trim();
+        if (query.length > 0) {
+          if (clearBtn) clearBtn.classList.remove('hidden');
+        } else {
+          if (clearBtn) clearBtn.classList.add('hidden');
+        }
+        filterVideosLive(query);
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function() {
+        if (searchInput) {
+          searchInput.value = '';
+          clearBtn.classList.add('hidden');
+          filterVideosLive('');
+          searchInput.focus();
+        }
+      });
+    }
+
+    function filterVideosLive(query) {
+      const allCards = document.querySelectorAll('.video-card');
+      let matchedCount = 0;
+
+      allCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (query === '' || text.includes(query)) {
+          card.style.display = 'block';
+          matchedCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // If in another page, switch to home to show search results
+      if (query !== '') {
+        const homeView = document.getElementById('homeView');
+        if (homeView && homeView.classList.contains('hidden')) {
+          navigateTo('home');
+        }
+      }
+    }
+
+    function focusSearch() {
+      if (searchInput) {
+        searchInput.focus();
+        showToast('Ketik judul film atau nama artis di kolom pencarian');
+      }
+    }
+
+    // Horizontal Row Scroll Utility
+    function scrollRow(rowId, delta) {
+      const el = document.getElementById(rowId);
+      if (el) {
+        el.scrollBy({ left: delta, behavior: 'smooth' });
+      }
+    }
+
+    // Playlist Play All
+    function playAllPlaylist(playlistKey) {
+      handleDirectLinkClick();
+      if (playlistKey === 'mager') {
+        openVideoModal('mager-wudhu');
+      } else {
+        openVideoModal('males-super');
+      }
+      showToast(`Memutar semua video dalam playlist ${playlistKey.toUpperCase()}`);
+    }
+
+    // Dynamic Sidebar Page Navigation (Rule 1)
+    function navigateTo(pageKey) {
+      const navButtons = document.querySelectorAll('.nav-item');
+      navButtons.forEach(btn => {
+        if (btn.dataset.nav === pageKey) {
+          btn.classList.add('bg-amber-400/10', 'text-amber-300', 'border', 'border-amber-400/20');
+          btn.classList.remove('text-slate-300');
+        } else {
+          btn.classList.remove('bg-amber-400/10', 'text-amber-300', 'border', 'border-amber-400/20');
+          btn.classList.add('text-slate-300');
+        }
+      });
+
+      // Page containers
+      const views = {
+        'home': document.getElementById('homeView'),
+        'watchlist': document.getElementById('watchlistNavView'),
+        'comingsoon': document.getElementById('comingsoonNavView'),
+        'discovery': document.getElementById('discoveryNavView'),
+        'friends': document.getElementById('friendsNavView'),
+        'parties': document.getElementById('partiesNavView'),
+        'media': document.getElementById('mediaNavView'),
+        'setting': document.getElementById('settingNavView')
+      };
+
+      Object.keys(views).forEach(k => {
+        if (views[k]) {
+          if (k === pageKey) {
+            views[k].classList.remove('hidden');
+          } else {
+            views[k].classList.add('hidden');
+          }
+        }
+      });
+
+      if (pageKey === 'watchlist') {
+        renderWatchlistGrid();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    // Channel Sub-tabs
+    function setTab(tabKey) {
+      const tabs = document.querySelectorAll('.channel-tab');
+      tabs.forEach(t => {
+        if (t.dataset.tab === tabKey) {
+          t.classList.add('text-white', 'border-b-2', 'border-white');
+          t.classList.remove('text-slate-400');
+        } else {
+          t.classList.remove('text-white', 'border-b-2', 'border-white');
+          t.classList.add('text-slate-400');
+        }
+      });
+
+      if (tabKey === 'video') {
+        filterCategory('ALL');
+        showToast('Menampilkan semua koleksi video');
+      } else if (tabKey === 'playlist') {
+        navigateTo('discovery');
+      } else if (tabKey === 'postingan') {
+        navigateTo('friends');
+      } else if (tabKey === 'live') {
+        navigateTo('parties');
+      } else {
+        navigateTo('home');
+      }
+    }
+
+    // Render Watchlist Grid
+    function renderWatchlistGrid() {
+      const grid = document.getElementById('watchlistGrid');
+      const badge = document.getElementById('watchlistBadge');
+      if (badge) badge.textContent = userWatchlist.length;
+
+      if (!grid) return;
+      if (userWatchlist.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center space-y-3">
+            <i data-lucide="bookmark" class="w-12 h-12 text-slate-500 mx-auto"></i>
+            <p class="text-sm font-semibold text-slate-400">Watch List Anda masih kosong.</p>
+            <button onclick="navigateTo('home')" class="px-4 py-2 rounded-xl bg-amber-400 text-black text-xs font-bold">
+              Jelajahi Video Sekarang
+            </button>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      grid.innerHTML = userWatchlist.map(id => {
+        const item = VIDEO_DATABASE[id];
+        if (!item) return '';
+        return `
+          <div class="p-3 rounded-2xl bg-[#14141e] border border-[#252538] space-y-2 group cursor-pointer hover:border-amber-400/40 transition-all">
+            <div class="relative aspect-video rounded-xl overflow-hidden bg-black" onclick="handleVideoItemClick('${item.id}')">
+              <img src="${item.thumbnail}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <span class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono text-white">${item.duration}</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-200 line-clamp-2">${item.title}</h4>
+            <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/5">
+              <span>${item.views}</span>
+              <button onclick="removeFromWatchlist('${item.id}')" class="text-red-400 hover:text-red-300 text-[10px] font-bold">Hapus</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function addCurrentToWatchlist() {
+      if (!userWatchlist.includes(currentActiveVideoId)) {
+        userWatchlist.push(currentActiveVideoId);
+        showToast('Video berhasil ditambahkan ke Watch List!');
+        const badge = document.getElementById('watchlistBadge');
+        if (badge) badge.textContent = userWatchlist.length;
+      } else {
+        showToast('Video ini sudah ada di dalam Watch List Anda.');
+      }
+    }
+
+    function removeFromWatchlist(id) {
+      userWatchlist = userWatchlist.filter(item => item !== id);
+      renderWatchlistGrid();
+      showToast('Video dihapus dari Watch List.');
+    }
+
+    function clearWatchlist() {
+      userWatchlist = [];
+      renderWatchlistGrid();
+      showToast('Watch List telah dikosongkan.');
+    }
+
+    // Likes & Feedback Simulation
+    let isLiked = false;
+    let isDisliked = false;
+    function toggleLikeVideo() {
+      isLiked = !isLiked;
+      const likeBtn = document.getElementById('modalLikeBtn');
+      const counter = document.getElementById('likeCounter');
+      if (isLiked) {
+        likeBtn.classList.add('bg-amber-400/30', 'text-amber-300');
+        counter.textContent = '43 rb';
+        showToast('Terima kasih atas jempolnya!');
+      } else {
+        likeBtn.classList.remove('bg-amber-400/30', 'text-amber-300');
+        counter.textContent = '42 rb';
+      }
+    }
+
+    function toggleDislikeVideo() {
+      isDisliked = !isDisliked;
+      showToast(isDisliked ? 'Masukan Anda tercatat.' : '');
+    }
+
+    // Channel Bio Modal
+    function openBioModal() {
+      const modal = document.getElementById('bioModal');
+      if (modal) modal.classList.remove('hidden'), modal.classList.add('flex');
+    }
+    function closeBioModal() {
+      const modal = document.getElementById('bioModal');
+      if (modal) modal.classList.add('hidden'), modal.classList.remove('flex');
+    }
+
+    // Notification Dropdown Toggle
+    function toggleNotificationPanel() {
+      const panel = document.getElementById('notificationDropdown');
+      if (panel) panel.classList.toggle('hidden');
+    }
+
+    function markAllNotificationsRead() {
+      const panel = document.getElementById('notificationDropdown');
+      if (panel) panel.classList.add('hidden');
+      showToast('Semua notifikasi telah ditandai dibaca.');
+    }
+
+    // Share link
+    function shareChannel() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href);
+      }
+      showToast('Tautan saluran Leslar Entertainment disalin ke papan klip!');
+    }
+
+    // Filter by Category
+    function filterCategory(cat) {
+      const search = document.getElementById('globalSearchInput');
+      if (search) {
+        if (cat === 'ALL') {
+          search.value = '';
+          filterVideosLive('');
+        } else {
+          search.value = cat;
+          filterVideosLive(cat);
+          showToast(`Menampilkan kategori: ${cat}`);
+        }
+      }
+    }
+
+    // Toast Notification Maker
+    function showToast(message) {
+      if (!message) return;
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = 'px-4 py-2.5 rounded-2xl bg-[#1e1e2d] border border-amber-400/30 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 animate-in slide-in-from-bottom-2 fade-in duration-200 pointer-events-auto';
+      toast.innerHTML = `
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // ESC Key listener to close modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeVideoModal();
+        closeBioModal();
+      }
+    });
+
+    // Sidebar Mobile Toggle
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const mainSidebar = document.getElementById('mainSidebar');
+    if (sidebarToggleBtn && mainSidebar) {
+      sidebarToggleBtn.addEventListener('click', () => {
+        mainSidebar.classList.toggle('hidden');
+      });
+    }
+
+    // Initialize Lucide Icons on load
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderWatchlistGrid();
+    });
+  </script>
+</body>
+</html>
